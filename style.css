@@ -7,7 +7,7 @@ body {
   max-width: 900px;
   margin: 0 auto;
   clear: both;
-/*background-image: url(../images/pattern1.png);*/
+  background-image: url(../Project 1/images/pattern1.png);
   background-size: cover;
 }
 h1 {
@@ -55,7 +55,10 @@ button {
   background-color: grey;
   border: 1px, solid;
 }
-
+.showPic {
+  background-image: url(../Project 1/images/images.jpeg);
+  background-size: contain;
+}
 .matched {
   background-image: url(../images
 
