@@ -1,5 +1,5 @@
-// game state variables
 $(document).ready(function (){
+// game state variables
 var newPics = [
   '1', '1',
   '2', '2',
