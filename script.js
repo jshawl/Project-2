@@ -47,18 +47,19 @@ var cardMatch = function(flipped1, flipped2) {
   var color1 = $(flipped1).css("background");
   var color2 = $(flipped2).css("background");
   if (color1 === color2) {
-    wins++;
-    alert("You made a match!")
+    wins+=2;
+    alert("You made a match!");
     $(flipped1).attr("class", "box matched");
     $(flipped2).attr("class", "box matched");
   }
   else {
-    alert("Try again!")
+    alert("Try again!");
     missed++;
     $(flipped1).addClass('noPic');
     $(flipped1).removeClass('showPic');
     $(flipped2).addClass('noPic');
     $(flipped2).removeClass('showPic');
+    // swal("Try again!")
   };
   keepScore();
 };
@@ -66,6 +67,9 @@ var cardMatch = function(flipped1, flipped2) {
 var keepScore = function() {
   $("#wins").text('Matches: ' + wins);
   $("#missed").text('Missed: ' + missed);
+  if (wins == 12) {
+    swal("Good job!", "You won!", "success");
+  }
 }
 
 var checkClass = function () {
