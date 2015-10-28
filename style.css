@@ -59,9 +59,9 @@ button {
 .noPic {
   background-color: lightgrey;
 }
-/*.matched {
+.matched {
   background-color: gold;
-}*/
+}
 #score {
   float: left;
   position: absolute;

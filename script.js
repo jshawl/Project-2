@@ -8,6 +8,8 @@ var newPics = [
   '5', '5',
   '6', '6'
 ];
+var wins = 0;
+var missed = 0;
 
 //functions
 var shufflePics = function () {
@@ -18,75 +20,53 @@ var shufflePics = function () {
   };
 };
 
-// var setNewPics = function (){
-//   for (var i = 0; i < newPics.length; i++) {
-//     var picId = newPics[i];
-//     var boxId = "#box" + i;
-//     // added line below when considering switching to css classes to display pics:
-//     // $(boxId).attr("id", picId);
-//     showImages(boxId, picId);
-//   };
-// };
-
-// var setNoPicClass = function (boxId, picId) {
-//   $(boxId).toggleClass('noPic');
-//   $(picId).toggleClass('noPic');
-// };
-
 var showImages = function (boxId, picId) {
   console.log(boxId, picId);
   boxId = "#" + boxId;
     if (picId === '1' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic1");
+      $(boxId).addClass("pic1");
     }
     else if (picId === '2' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic2");
+      $(boxId).addClass("pic2");
     }
     else if (picId === '3' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic3");
+      $(boxId).addClass("pic3");
     }
     else if (picId === '4' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic4");
+      $(boxId).addClass("pic4");
     }
     else if (picId === '5' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic5");
+      $(boxId).addClass("pic5");
     }
     else if (picId === '6' && $(boxId).hasClass('showPic')) {
-      $(boxId).toggleClass("pic6");
+      $(boxId).addClass("pic6");
     };
-  // });
 }
-//
+
 var cardMatch = function(flipped1, flipped2) {
-  var wins;
-  var missed;
   var color1 = $(flipped1).css("background");
   var color2 = $(flipped2).css("background");
   if (color1 === color2) {
-    // return true;
-    // wins +=1
+    wins++;
     alert("You made a match!")
-    $(flipped1).attr("class","matched");
-    $(flipped2).attr("class","matched");
+    $(flipped1).attr("class", "box matched");
+    $(flipped2).attr("class", "box matched");
   }
   else {
     alert("Try again!")
-    // return false;
-    // missed +=1;
-    $(flipped1).toggleClass('noPic');
+    missed++;
+    $(flipped1).addClass('noPic');
     $(flipped1).removeClass('showPic');
-    $(flipped2).toggleClass('noPic');
+    $(flipped2).addClass('noPic');
     $(flipped2).removeClass('showPic');
   };
-  // keepScore(wins, missed);
+  keepScore();
 };
 
-// var keepScore = function(wins, missed) {
-//   $("#wins").text('Matches' + wins);
-//   $("#missed").text('Missed' + missed);
-//   return wins;
-//   return missed;
-// }
+var keepScore = function() {
+  $("#wins").text('Matches: ' + wins);
+  $("#missed").text('Missed: ' + missed);
+}
 
 var checkClass = function () {
   var showPicBoxes = [];
@@ -111,32 +91,33 @@ else {
 // event handlers
 var handleBoxClick = function(evt) {
   var clickedBox = this;
-  var boxId = $(clickedBox).attr('id');
-  var picIndex = boxId.split("box")[1];
-  var picId = newPics[picIndex];
-  $(clickedBox).toggleClass('showPic');
-  $(clickedBox).removeClass('noPic')
-  showImages(boxId, picId);
-  var flippedCards = checkClass();
-  if (flippedCards) {
-    cardMatch(flippedCards[0], flippedCards[1]);
-  };
+  if ($(clickedBox).hasClass('matched')) {
+    return true;
+  }
+  else {
+    var boxId = $(clickedBox).attr('id');
+    var picIndex = boxId.split("box")[1];
+    var picId = newPics[picIndex];
+    $(clickedBox).addClass('showPic');
+    $(clickedBox).removeClass('noPic')
+    showImages(boxId, picId);
+    var flippedCards = checkClass();
+    if (flippedCards) {
+      cardMatch(flippedCards[0], flippedCards[1]);
+    };
+  }
 };
 
 var handleDealButton = function(evt) {
   shufflePics();
-  // setNewPics();
-  $('.box').toggleClass('noPic');
-  $('.box').removeClass('showPic');
-  // for (var i = 0; i < $('.box').length; i++) {
-  //   var targetID = '#box' + i;
-  //   $(targetID).css('background', '');
-  // }
+  $('.box').attr('class', 'box noPic');
+  wins = 0;
+  missed = 0;
+  keepScore();
 }
 // event listeners
 $('.box').on('click', handleBoxClick);
 $('#deal').on('click', handleDealButton);
-//
 shufflePics();
-// setNewPics();
+
 })
