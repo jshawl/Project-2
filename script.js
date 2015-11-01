@@ -7,7 +7,7 @@ var newPics = [
   '4', '4',
   '5', '5',
   '6', '6'
-];
+]; // maybe a loop could be used to generate this array
 var wins = 0;
 var missed = 0;
 
@@ -22,30 +22,17 @@ var shufflePics = function () {
 
 var showImages = function (boxId, picId) {
   console.log(boxId, picId);
-  boxId = "#" + boxId;
-    if (picId === '1' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic1");
+  var boxId = "#" + boxId;
+  for(var i = 1; i <= newPics.length; i++){
+    if(picId == i && $(boxId).hasClass("showPic")){
+      $(boxId).addClass("pic" + i);
     }
-    else if (picId === '2' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic2");
-    }
-    else if (picId === '3' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic3");
-    }
-    else if (picId === '4' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic4");
-    }
-    else if (picId === '5' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic5");
-    }
-    else if (picId === '6' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic6");
-    };
+  }
 }
 
 var cardMatch = function(flipped1, flipped2) {
   var color1 = $(flipped1).css("background");
-  var color2 = $(flipped2).css("background");
+  var color2 = $(flipped2).css("background"); // nice!
   if (color1 === color2) {
     wins+=2;
     alert("You made a match!");
@@ -68,14 +55,14 @@ var keepScore = function() {
   $("#wins").text('Matches: ' + wins);
   $("#missed").text('Missed: ' + missed);
   if (wins == 12) {
-    swal("Good job!", "You won!", "success");
+    swal("Good job!", "You won!", "success"); // really like this look!
   }
 }
 
 var checkClass = function () {
   var showPicBoxes = [];
   for (var i = 0; i < $('.box').length; i++) {
-    var targetID = '#box' + i;
+    var targetID = '#box' + i; // I think your length issue is related to box numbers starting at 1 and not 0
     var boxClass = $(targetID).hasClass('showPic');
     if (boxClass) {
       showPicBoxes.push(targetID);
@@ -87,10 +74,10 @@ if (showPicBoxes.length == 2) {
 }
 else {
   return false;
-}
+} // please indent code correctly.
 };
 
-// $(this).off('click');
+// $(this).off('click'); // remove unused code
 
 // event handlers
 var handleBoxClick = function(evt) {
@@ -107,7 +94,7 @@ var handleBoxClick = function(evt) {
     showImages(boxId, picId);
     var flippedCards = checkClass();
     if (flippedCards) {
-      cardMatch(flippedCards[0], flippedCards[1]);
+      cardMatch(flippedCards[0], flippedCards[1]); // excellent!
     };
   }
 };

@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  justify-content: center;
+  justify-content: center; /* only valid w/ display: flex; */
 }
 body {
   max-width: 600px;
@@ -10,6 +10,7 @@ body {
   background-image:
   linear-gradient(90deg, transparent 79px, #abced4 79px, #abced4 81px, transparent 81px),
   linear-gradient(#eee .1em, transparent .1em);
+  /*http://caniuse.com/#feat=css-gradients*/
   background-size: 100% 1.2em;
 }
 h1 {
@@ -45,6 +46,7 @@ button {
   margin: 5% 12%;
 }
 .block {
+  /* remove unused code */
 }
 
 .box {
@@ -76,6 +78,7 @@ button {
   linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -20px 93px,
   linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -20px 73px,
   linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 80px 73px;
+  /* nice!! */
   background-color: #232927;
   background-size: 100px 100px;
 }
