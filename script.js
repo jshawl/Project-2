@@ -49,15 +49,15 @@ var keepScore = function() {
   }
 }
 
-var checkClass = function () {
+var checkClass = function(box) {
   var showPicBoxes = [];
-  for (var i = 0; i < $('.box').length; i++) {
-    var targetID = '#box' + i;
-    var boxClass = $(targetID).hasClass('showPic');
+  var id = $(box).data("id")
+  $("[data-id='"+id+"']").each(function(i,e){
+    var boxClass = $(e).hasClass('showPic');
     if (boxClass) {
-      showPicBoxes.push(targetID);
+      showPicBoxes.push(box);
     }
-  };
+  })
 //*problem here with .length
 if (showPicBoxes.length == 2) {
   return(showPicBoxes);
@@ -81,7 +81,7 @@ var handleBoxClick = function(evt) {
     $(clickedBox).addClass('showPic');
     $(clickedBox).removeClass('noPic')
     showImages(clickedBox, picIndex);
-    var flippedCards = checkClass();
+    var flippedCards = checkClass(clickedBox);
     if (flippedCards) {
       cardMatch(flippedCards[0], flippedCards[1]);
     };
