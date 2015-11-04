@@ -55,7 +55,7 @@ var checkClass = function(box) {
   $("[data-id='"+id+"']").each(function(i,e){
     var boxClass = $(e).hasClass('showPic');
     if (boxClass) {
-      showPicBoxes.push(box);
+      showPicBoxes.push(e);
     }
   })
 //*problem here with .length
