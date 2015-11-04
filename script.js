@@ -1,13 +1,6 @@
 $(document).ready(function (){
 // game state variables
-var newPics = [
-  '1', '1',
-  '2', '2',
-  '3', '3',
-  '4', '4',
-  '5', '5',
-  '6', '6'
-];
+var tileCount = 12
 var wins = 0;
 var missed = 0;
 
@@ -20,27 +13,11 @@ var shufflePics = function () {
   };
 };
 
-var showImages = function (boxId, picId) {
-  console.log(boxId, picId);
-  boxId = "#" + boxId;
-    if (picId === '1' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic1");
+var showImages = function (clickedBox, picId) {
+  console.log(clickedBox, picId);
+    if ($(clickedBox).hasClass('showPic')) {
+      $(clickedBox).addClass("pic" + picId);
     }
-    else if (picId === '2' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic2");
-    }
-    else if (picId === '3' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic3");
-    }
-    else if (picId === '4' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic4");
-    }
-    else if (picId === '5' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic5");
-    }
-    else if (picId === '6' && $(boxId).hasClass('showPic')) {
-      $(boxId).addClass("pic6");
-    };
 }
 
 var cardMatch = function(flipped1, flipped2) {
@@ -100,11 +77,10 @@ var handleBoxClick = function(evt) {
   }
   else {
     var boxId = $(clickedBox).attr('id');
-    var picIndex = boxId.split("box")[1];
-    var picId = newPics[picIndex];
+    var picIndex = $(clickedBox).data("id")
     $(clickedBox).addClass('showPic');
     $(clickedBox).removeClass('noPic')
-    showImages(boxId, picId);
+    showImages(clickedBox, picIndex);
     var flippedCards = checkClass();
     if (flippedCards) {
       cardMatch(flippedCards[0], flippedCards[1]);
@@ -119,9 +95,15 @@ var handleDealButton = function(evt) {
   missed = 0;
   keepScore();
 }
+// build html
+for( var i = 1; i <= tileCount / 2; i++){
+  var box = $("<div class='box noPic' data-id='"+i+"'></div>")
+  $(".grid").append(box)
+  $(".grid").append(box.clone())
+}
 // event listeners
 $('.box').on('click', handleBoxClick);
 $('#deal').on('click', handleDealButton);
-shufflePics();
+//shufflePics();
 
 })
